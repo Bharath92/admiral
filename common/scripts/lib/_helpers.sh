@@ -177,14 +177,14 @@ __pull_images() {
   for image in "${PUBLIC_REGISTRY_IMAGES[@]}"; do
     image="$PUBLIC_IMAGE_REGISTRY/$image:$RELEASE"
     __process_msg "Pulling $image"
-    sudo docker pull $image
+    #sudo docker pull $image
   done
 
   __process_msg "Registry: shipimg"
-  
+
   image="$PUBLIC_IMAGE_REGISTRY/genexec:$RELEASE"
   __process_msg "Pulling $image"
-  sudo docker pull $image
+  #sudo docker pull $image
 
   __process_msg "Registry: $PRIVATE_IMAGE_REGISTRY"
   __registry_login
@@ -192,7 +192,7 @@ __pull_images() {
   for image in "${SERVICE_IMAGES[@]}"; do
     image="$PRIVATE_IMAGE_REGISTRY/$image:$RELEASE"
     __process_msg "Pulling $image"
-    sudo docker pull $image
+    #sudo docker pull $image
   done
 }
 
@@ -247,7 +247,7 @@ __pull_images_workers() {
     for image in "${SERVICE_IMAGES[@]}"; do
       image="$PRIVATE_IMAGE_REGISTRY/$image:$RELEASE"
       __process_msg "Pulling $image on $host"
-      local pull_cmd="sudo docker pull $image"
+      #local pull_cmd="sudo docker pull $image"
       __exec_cmd_remote "$host" "$pull_cmd"
     done
   done

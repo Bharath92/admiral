@@ -98,7 +98,7 @@ main() {
       for image in "${SERVICE_IMAGES[@]}"; do
         image="$PRIVATE_IMAGE_REGISTRY/$image:$RELEASE"
         __process_msg "Pulling $image on $WORKER_HOST"
-        local pull_cmd="sudo docker pull $image"
+        #local pull_cmd="sudo docker pull $image"
         __exec_cmd_remote "$WORKER_HOST" "$pull_cmd"
       done
     fi

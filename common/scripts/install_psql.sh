@@ -21,4 +21,4 @@ main() {
 	echo "psql 9.5 successfully installed"
 }
 
-main
+#main
