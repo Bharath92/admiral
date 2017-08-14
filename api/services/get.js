@@ -128,7 +128,8 @@ function _setDefault(bag, next) {
         serviceName: service.name,
         isCore: service.isCore,
         replicas: service.isGlobal ? 'global' : 1,
-        isEnabled: false
+        isEnabled: false,
+        apiUrlIntegration: service.apiUrlIntegration || 'api'
       };
     }
   );

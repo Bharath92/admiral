@@ -245,6 +245,9 @@ function _put(bag, next) {
   logger.verbose(who, 'Inside');
 
   bag.serviceConfig.replicas = bag.replicas;
+  if (bag.reqBody.apiUrlIntegration)
+    bag.serviceConfig.apiUrlIntegration = bag.reqBody.apiUrlIntegration;
+
   bag.services[bag.name] = bag.serviceConfig;
 
   configHandler.put('services', bag.services,

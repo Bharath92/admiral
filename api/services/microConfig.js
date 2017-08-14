@@ -95,7 +95,9 @@ function _getAPISystemIntegration(bag, next) {
   var who = bag.who + '|' + _getAPISystemIntegration.name;
   logger.verbose(who, 'Inside');
 
-  var query = 'name=api&masterName=url';
+  var apiUrlIntegration = bag.config.apiUrlIntegration || 'api';
+
+  var query = util.format('name=%s&masterName=url', apiUrlIntegration);
   bag.apiAdapter.getSystemIntegrations(query,
     function (err, systemIntegrations) {
       if (err)
