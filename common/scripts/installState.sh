@@ -90,7 +90,17 @@ main() {
     __update_state_config
 
     if [ "$ADMIRAL_IP" == "$STATE_HOST" ]; then
-      source "$SCRIPTS_DIR/docker/$script_name"
+      if [ "$HOST_SERVICES" == "true" ]; then
+        __copy_configs
+
+        local gitlab_install_cmd="STATE_HOST=$STATE_HOST \
+          STATE_PORT=$STATE_PORT \
+          SSH_PORT=$SSH_PORT \
+          $SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/$script_name"
+        __exec_cmd_local "$STATE_HOST" "$gitlab_install_cmd"
+      else
+        source "$SCRIPTS_DIR/docker/$script_name"
+      fi
     else
       local script_path="$SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/$script_name"
       __check_connection "$STATE_HOST"
