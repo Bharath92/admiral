@@ -38,6 +38,7 @@ function initialize(req, res) {
       _getReleaseVersion.bind(null, bag),
       _getOperatingSystem.bind(null, bag),
       _getArchitecture.bind(null, bag),
+      _getHostServices.bind(null, bag),
       _generateInitializeEnvs.bind(null, bag),
       _generateInitializeScript.bind(null, bag),
       _writeScriptToFile.bind(null, bag),
@@ -241,6 +242,26 @@ function _getArchitecture(bag, next) {
   );
 }
 
+function _getHostServices(bag, next) {
+  var who = bag.who + '|' + _getHostServices.name;
+  logger.verbose(who, 'Inside');
+
+  envHandler.get('HOST_SERVICES',
+    function (err, hostServices) {
+      if (err)
+        return next(
+          new ActErr(who, ActErr.OperationFailed,
+            'Cannot get env: HOST_SERVICES')
+        );
+
+      bag.hostServices = hostServices;
+      logger.debug('Found Host services');
+
+      return next();
+    }
+  );
+}
+
 function _generateInitializeEnvs(bag, next) {
   if (!bag.config.isShippableManaged) return next();
 
@@ -267,7 +288,8 @@ function _generateInitializeEnvs(bag, next) {
     'SHIPPABLE_HTTPS_PROXY': process.env.https_proxy || '',
     'SHIPPABLE_NO_PROXY': process.env.no_proxy || '',
     'ARCHITECTURE': bag.architecture,
-    'OPERATING_SYSTEM': bag.operatingSystem
+    'OPERATING_SYSTEM': bag.operatingSystem,
+    'HOST_SERVICES': bag.hostServices
   };
 
   return next();
