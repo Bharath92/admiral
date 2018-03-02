@@ -94,7 +94,18 @@ main() {
     __update_vault_creds
 
     if [ "$ADMIRAL_IP" == "$VAULT_HOST" ]; then
-      source "$SCRIPTS_DIR/docker/$script_name"
+      if [ "$HOST_SERVICES" == "true" ]; then
+        __copy_configs
+        source "$SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/configVault.sh"
+
+        local vault_install_cmd="VAULT_HOST=$VAULT_HOST \
+          VAULT_PORT=$VAULT_PORT \
+          $SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/$script_name"
+
+        __exec_cmd_local "$ADMIRAL_IP" "$vault_install_cmd"
+      else
+        source "$SCRIPTS_DIR/docker/$script_name"
+      fi
     else
       local script_path="$SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/$script_name"
       __check_connection "$VAULT_HOST"
