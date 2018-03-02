@@ -67,7 +67,15 @@ main() {
     __update_redis_config
 
     if [ "$ADMIRAL_IP" == "$REDIS_HOST" ]; then
-      source "$SCRIPTS_DIR/docker/$script_name"
+      if [ "$HOST_SERVICES" == "true" ]; then
+        __copy_configs
+        local redis_install_cmd="REDIS_HOST=$REDIS_HOST \
+          REDIS_PORT=$REDIS_PORT \
+          $SCRIPTS_DIR_REMOTE/$script_name"
+        __exec_cmd_local "$ADMIRAL_IP" "$redis_install_cmd"
+      else
+        source "$SCRIPTS_DIR/docker/$script_name"
+      fi
     else
       local script_path="$SCRIPTS_DIR/$ARCHITECTURE/$OPERATING_SYSTEM/remote/$script_name"
       __check_connection "$REDIS_HOST"
