@@ -602,7 +602,7 @@
                     <div class="col-md-4">
                       <h5>Worker Install Location:</h5>
                       <select class="form-control"
-                        ng-disabled="((vm.initializeForm.workers.workers[0].isInitialized || vm.initializeForm.workers.workers[0].isFailed) && vm.initializeForm.workers.workers[0].address !== vm.admiralEnv.ADMIRAL_IP) || (vm.admiralEnv.IS_SERVER && vm.admiralEnv.DB_IP === vm.admiralEnv.ADMIRAL_IP) || vm.initializing"
+                        ng-disabled="((vm.initializeForm.workers.workers[0].isInitialized || vm.initializeForm.workers.workers[0].isFailed) && vm.initializeForm.workers.workers[0].address !== vm.admiralEnv.ADMIRAL_IP) || vm.initializing"
                         ng-model="vm.initializeForm.workers.initType">
                         <option value="admiral">This node</option>
                         <option value="new">New node(s)</option>
