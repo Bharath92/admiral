@@ -1184,14 +1184,23 @@
                   split('@')[0].split('//')[1];
                 $scope.vm.initializeForm[service].username = auth.split(':')[0];
                 $scope.vm.initializeForm[service].password = auth.split(':')[1];
+              } else {
+                if (_.isEmpty($scope.vm.initializeForm[service].password))
+                  $scope.vm.initializeForm[service].password =
+                    $scope.vm.admiralEnv.DB_PASSWORD;
               }
             } else if (service === 'state') {
               var stateSystemIntegration =
                 _.findWhere($scope.vm.systemIntegrations,
                   {name: 'state', masterName: 'gitlabCreds'});
-              if (stateSystemIntegration)
+              if (stateSystemIntegration) {
                 $scope.vm.initializeForm[service].rootPassword =
                   stateSystemIntegration.data.password;
+              } else {
+                if (_.isEmpty($scope.vm.initializeForm[service].rootPassword))
+                  $scope.vm.initializeForm[service].rootPassword =
+                    $scope.vm.admiralEnv.DB_PASSWORD;
+              }
             }
           }
 
