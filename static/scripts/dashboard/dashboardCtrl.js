@@ -1065,7 +1065,7 @@
          getSystemIntegration.bind(null, bag),
          validateSCMUrl.bind(null, bag)
        ],
-         function () { 
+         function () {
           $scope.vm.isNotValidurl[bag.masterName] =
             bag.isNotValidurl[bag.masterName];
           $scope.vm.disableSave = bag.isNotValidurl[bag.masterName];
