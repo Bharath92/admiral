@@ -461,7 +461,10 @@ __parse_args_install() {
         --onebox)
           export ONEBOX_MODE=true
           export DB_PORT="5432"
+<<<<<<< HEAD
           export DB_INSTALLED="false"
+=======
+>>>>>>> add support for --onebox
           ;;
         --password)
           shift
