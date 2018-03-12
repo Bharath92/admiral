@@ -761,8 +761,9 @@
             $scope.vm.systemSettings.msg.isInitialized &&
             $scope.vm.systemSettings.state.isInitialized &&
             $scope.vm.systemSettings.redis.isInitialized &&
-            $scope.vm.systemSettings.master.isInitialized &&
-            $scope.vm.systemSettings.workers.length &&
+            $scope.vm.systemSettings.master.isInitialized;
+          if ($scope.vm.systemSettings.workers.length)
+            $scope.vm.initialized = $scope.vm.initialized &&
             _.every($scope.vm.systemSettings.workers,
               function (worker) {
                 return worker.isInitialized;
@@ -1911,12 +1912,7 @@
       var masterUpdate = {
         address: $scope.vm.admiralEnv.ADMIRAL_IP
       };
-      var workersList = [
-        {
-          address: $scope.vm.admiralEnv.ADMIRAL_IP,
-          name: 'worker'
-        }
-      ];
+      var workersList = [];
 
       // if the user had tried to add a new worker, then switched to
       // an admiral initType, remove any non-admiral workers
