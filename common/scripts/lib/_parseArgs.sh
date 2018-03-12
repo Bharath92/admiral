@@ -367,7 +367,10 @@ __set_dev_mode() {
 }
 
 __set_onebox_mode_on_existing_install() {
+<<<<<<< HEAD
  echo "coming herer"
+=======
+>>>>>>> pulls service images only when required
   if [ ! -z "$ONEBOX_MODE" ]; then
     return
   fi
@@ -379,7 +382,6 @@ __set_onebox_mode_on_existing_install() {
   if [ "$ADMIRAL_IP" != "$DB_IP" ]; then
     ONEBOX_MODE="false"
   fi
-  echo $ONEBOX_MODE
 
   if [ -z "$ONEBOX_MODE" ]; then
     _shippable_get_secrets
